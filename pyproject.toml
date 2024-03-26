@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "elevation application"
+version = "0.1.0"
+description = "The home of the flask web application for elevation information"
+authors = ["shearere2 <shearere2@duq.edu>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.1"
+flask = "^3.0.2"
+numpy = "^1.26.4"
+seaborn = "^0.13.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
