@@ -34,6 +34,7 @@ def elevation_difference(start:tuple,end:tuple) -> float:
     start_elev = find_elevation(start[0],start[1])
     end_elev = find_elevation(end[0],end[1])
 
+    if start_elev == None or end_elev == None: return 0
     return end_elev - start_elev # Represents meters that must be walked
 #                                  uphill to get from point 1 to point 2
 
@@ -53,10 +54,11 @@ def summarize_journey(start:tuple,end:tuple) -> dict:
         Cumulative uphill travel, cumulative downhill travel,
         total distance, total altitude change
     """
+    if start == None or end == None:
+        return {"Cumulative Uphill Travel":0,"Cumulative Downhill Travel":0,
+            "Total Distance":0,"Total Altitude Change":0}
     start = (float(start[0]),float(start[1]))
     end = (float(end[0]),float(end[1]))
-    if start == None or end == None:
-        return
     dist = float(distance(lonlat(*start), lonlat(*end)).meters)
     alt = float(elevation_difference(start,end))
     increments = ((dist%10.0)*unit) # Represents number of 10 meter increments between points

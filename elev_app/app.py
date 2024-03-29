@@ -43,9 +43,26 @@ def my_form():
 
 @app.route('/input', methods=['POST'])
 def my_form_post():
-    text = request.form['text']
-    processed_text = text.upper()
-    return processed_text
+    slat = request.form['start_lat']
+    slon = request.form['start_lon']
+    elat = request.form['end_lat']
+    elon = request.form['end_lon']
+    start = tuple((slat,slon))
+    end = tuple((elat,elon))
+    coords = [start,end]
+    info = summarize_journey(start,end)
+    up = info['Cumulative Uphill Travel']
+    down = info['Cumulative Downhill Travel']
+    alt = info['Total Altitude Change']
+    dist = info['Total Distance']
+    return render_template(
+        "input.html",
+        up = '{0:.2f}'.format(info['Cumulative Uphill Travel']),
+        down = '{0:.2f}'.format(info['Cumulative Downhill Travel']),
+        alt = '{0:.2f}'.format(info['Total Altitude Change']),
+        dist = '{0:.2f}'.format(info['Total Distance']),
+        coords = coords
+    )
 
 if __name__ == "__main__":
     app.run()
